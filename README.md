@@ -36,9 +36,10 @@ Each scene can have its own independent telestrator canvas. Pencil settings (col
 
 ## Drawing
 
-1. Right-click your scene in the **Scenes** panel and choose **Windowed Projector (Scene)** or **Fullscreen Projector (Scene)**.
-2. Click and drag in the projector window to draw.
-3. Drawing only works while the projector window is in the foreground.
+1. Right-click anywhere in the **OBS Preview** area.
+2. Choose **Open Preview Projector**, then select a monitor from the submenu or choose **New window** to open it in a floating window.
+3. Click and drag in the projector window to draw.
+4. Drawing only works while the projector window is in the foreground.
 
 ---
 
@@ -74,15 +75,28 @@ Open **Tools → Scripts** and select the Telestrator entry to access these sett
 
 ## Non-English OBS Installations
 
-The script identifies OBS windows by their title bar text. If OBS is set to a language other than English, update the **Preview**, **Program**, and **Projector** fields in the script properties to match the translated window titles.
+The script identifies OBS windows by their title bar text. If OBS is set to a language other than English, the window names must be updated to match your locale.
 
-To find the correct values, open a projector and check its title bar. The format is:
+### Quick presets (Tools menu)
+
+The script adds a shortcut for common languages directly in the OBS **Tools** menu. Click the entry for your language and the values update immediately:
+
+- **Tools → Telestrator: Language — English (default)**
+- **Tools → Telestrator: Language — Spanish**
+- **Tools → Telestrator: Language — French**
+- **Tools → Telestrator: Language — German**
+- **Tools → Telestrator: Language — Portuguese (BR)**
+- **Tools → Telestrator: Language — Italian**
+
+### Manual setup (other languages)
+
+Open a projector and check its title bar — the format is:
 
 ```
 <Projector fragment> - <Preview or Program fragment>
 ```
 
-**Examples:**
+Enter the two parts into the **Preview / Program** and **Projector** fields in the script properties (**Tools → Scripts**).
 
 | Language | Projector | Preview | Program |
 |---|---|---|---|
@@ -90,6 +104,8 @@ To find the correct values, open a projector and check its title bar. The format
 | Spanish | `Proyector` | `Vista Previa` | `Programa` |
 | French | `Projecteur` | `Aperçu` | `Programme` |
 | German | `Projektor` | `Vorschau` | `Programm` |
+| Portuguese (BR) | `Projetor` | `Pré-Visualização` | `Programa` |
+| Italian | `Proiettore` | `Anteprima` | `Programma` |
 
 ---
 
