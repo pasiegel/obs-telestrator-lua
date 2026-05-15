@@ -131,14 +131,6 @@ function script_load(settings)
     local hotkey_save_array4 = obs.obs_data_get_array(settings, "telestration.erasertoggle")
     obs.obs_hotkey_load(hotkey_erase, hotkey_save_array4)
     obs.obs_data_array_release(hotkey_save_array4)
-
-    for _, lang in ipairs(LANGUAGE_PRESETS) do
-        local p, prog, proj = lang.preview, lang.program, lang.projector
-        obs.obs_frontend_add_tools_menu_item(
-            "Telestrator: Language — " .. lang.label,
-            function() apply_language(p, prog, proj) end
-        )
-    end
 end
 
 function script_update(settings)
@@ -609,6 +601,15 @@ function script_properties()
     local windowed_value = obs.obs_properties_add_text(properties, "windowed_value", "Projector", obs.OBS_TEXT_DEFAULT)
     
     obs.obs_properties_add_button(properties, "clear", "Clear Telestrator", clear_button)
+
+    obs.obs_properties_add_text(properties, "lang_header", "Language Presets", obs.OBS_TEXT_INFO)
+    for i, lang in ipairs(LANGUAGE_PRESETS) do
+        local p, prog, proj = lang.preview, lang.program, lang.projector
+        obs.obs_properties_add_button(properties, "lang_" .. i, lang.label, function()
+            apply_language(p, prog, proj)
+            return true
+        end)
+    end
 
     return properties
 end

@@ -70,6 +70,7 @@ Open **Tools → Scripts** and select the Telestrator entry to access these sett
 | **Program** | Title fragment for the OBS Program window |
 | **Projector** | Title fragment for the Projector window |
 | **Clear Telestrator** | Button to wipe the canvas immediately |
+| **Language Presets** | One-click buttons to set the Preview / Program / Projector fields for a supported locale (English, Spanish, French, German, Portuguese BR, Italian) |
 
 ---
 
@@ -77,16 +78,9 @@ Open **Tools → Scripts** and select the Telestrator entry to access these sett
 
 The script identifies OBS windows by their title bar text. If OBS is set to a language other than English, the window names must be updated to match your locale.
 
-### Quick presets (Tools menu)
+### Quick presets (script properties)
 
-The script adds a shortcut for common languages directly in the OBS **Tools** menu. Click the entry for your language and the values update immediately:
-
-- **Tools → Telestrator: Language — English (default)**
-- **Tools → Telestrator: Language — Spanish**
-- **Tools → Telestrator: Language — French**
-- **Tools → Telestrator: Language — German**
-- **Tools → Telestrator: Language — Portuguese (BR)**
-- **Tools → Telestrator: Language — Italian**
+In the script properties panel, scroll to **Language Presets** at the bottom and click the button for your language. The Preview, Program, and Projector fields update immediately and the change persists.
 
 ### Manual setup (other languages)
 
@@ -96,7 +90,7 @@ Open a projector and check its title bar — the format is:
 <Projector fragment> - <Preview or Program fragment>
 ```
 
-Enter the two parts into the **Preview / Program** and **Projector** fields in the script properties (**Tools → Scripts**).
+Type the two parts into the **Preview / Program** and **Projector** text fields in the script properties.
 
 | Language | Projector | Preview | Program |
 |---|---|---|---|
