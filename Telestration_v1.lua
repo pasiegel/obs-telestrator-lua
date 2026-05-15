@@ -28,6 +28,7 @@ size_max      = 12  -- size_max must be a minimum of 2.
 
 dot_vert = nil
 line_vert = nil
+g_settings = nil
 
 bit = require("bit")
 winapi = require("winapi")
@@ -75,6 +76,28 @@ source_def.destroy = function(data)
     obs.obs_leave_graphics()
 end
 
+-- Language presets for non-English OBS installations.
+-- Keys match the window title fragments OBS uses for each locale.
+local LANGUAGE_PRESETS = {
+    { label = "English (default)", preview = "Preview",       program = "Program",   projector = "Projector"  },
+    { label = "Spanish",           preview = "Vista Previa",  program = "Programa",  projector = "Proyector"  },
+    { label = "French",            preview = "Aperçu",        program = "Programme", projector = "Projecteur" },
+    { label = "German",            preview = "Vorschau",      program = "Programm",  projector = "Projektor"  },
+    { label = "Portuguese (BR)",   preview = "Pré-Visualização", program = "Programa", projector = "Projetor" },
+    { label = "Italian",           preview = "Anteprima",     program = "Programma", projector = "Proiettore" },
+}
+
+function apply_language(preview, program, projector)
+    preview_name   = preview
+    program_name   = program
+    projector_name = projector
+    if g_settings then
+        obs.obs_data_set_string(g_settings, "preview_value",  preview)
+        obs.obs_data_set_string(g_settings, "program_value",  program)
+        obs.obs_data_set_string(g_settings, "windowed_value", projector)
+    end
+end
+
 -- A function named script_load will be called on startup
 function script_load(settings)
     hotkey_clear = obs.obs_hotkey_register_frontend("telestration.clear", "Clear Telestrator", clear)
@@ -108,9 +131,18 @@ function script_load(settings)
     local hotkey_save_array4 = obs.obs_data_get_array(settings, "telestration.erasertoggle")
     obs.obs_hotkey_load(hotkey_erase, hotkey_save_array4)
     obs.obs_data_array_release(hotkey_save_array4)
+
+    for _, lang in ipairs(LANGUAGE_PRESETS) do
+        local p, prog, proj = lang.preview, lang.program, lang.projector
+        obs.obs_frontend_add_tools_menu_item(
+            "Telestrator: Language — " .. lang.label,
+            function() apply_language(p, prog, proj) end
+        )
+    end
 end
 
 function script_update(settings)
+    g_settings = settings
     local color_value = obs.obs_data_get_int(settings, "color")
     local size_value = obs.obs_data_get_int(settings, "size")
     local eraser_value = obs.obs_data_get_bool(settings, "eraser")
@@ -141,8 +173,9 @@ function script_unload()
     if dot_vert then obs.gs_vertexbuffer_destroy(dot_vert) end
     if line_vert then obs.gs_vertexbuffer_destroy(line_vert) end
     obs.obs_leave_graphics()
-    dot_vert = nil
-    line_vert = nil
+    dot_vert    = nil
+    line_vert   = nil
+    g_settings  = nil
 end
 
 function script_save(settings)
